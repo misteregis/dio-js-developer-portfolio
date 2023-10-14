@@ -1,28 +1,49 @@
 .acordeon {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     width: 100%;
     margin: 1rem 0;
     border: 1px solid #fff;
     border-radius: 1rem;
-    transition: .25s;
 }
 
-.acordeon.open,
-.acordeon:hover {
+.acordeon.open {
+    background-color: #2f306d;
+    border-color: #2f306d;
+}
+
+.acordeon .trigger:hover {
     background-color: #55569E;
     border-color: #55569E;
 }
 
 .acordeon .trigger {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     font-size: 1.5rem;
     font-weight: 700;
     padding: 1rem 2rem;
     background-color: transparent;
+    border-radius: 1rem;
+    -webkit-transition: .25s;
+    -o-transition: .25s;
+    transition: .25s;
     color: #fff;
     border: none;
 }
@@ -41,27 +62,38 @@
     content: '';
     display: inline-block;
     width: 1.5rem;
-    height: 1.5rem;
+    height: .875rem;
     background-repeat: no-repeat;
     background-size: contain;
     background-image: url('../img/icons/arrow-top.svg');
-    transition: .25s;
+    -webkit-transition: -webkit-transform .40s;
+    transition: -webkit-transform .40s;
+    -o-transition: transform .40s;
+    transition: transform .40s;
+    transition: transform .40s, -webkit-transform .40s;
 }
 
 .acordeon.open .trigger::after {
-    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+            transform: rotate(180deg);
 }
 
 .acordeon .content {
     overflow: hidden;
-    height: 0;
     opacity: 0;
-    transition: opacity .25s ease-in-out;
+    max-height: 0;
+    -webkit-transition: opacity .35s, max-height .30s;
+    -o-transition: opacity .35s, max-height .30s;
+    transition: opacity .35s, max-height .30s;
 }
 
 .acordeon.open .content {
-    display: block;
-    padding: 0 1rem 1rem 2rem;
-    height: auto;
+    max-height: 31.25rem;
     opacity: 1;
+}
+
+.acordeon .content > ul,
+.acordeon .content > div {
+    margin: 0 1rem .5rem 2rem;
 }

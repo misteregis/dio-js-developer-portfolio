@@ -1,73 +1,72 @@
+function updateElementText(id, text) {
+    const element = document.getElementById(id);
+
+    if (element) element.innerText = text;
+}
+
+function updateElementLink(id, text, link) {
+    const element = document.getElementById(id);
+    if (element) {
+        element.innerText = text;
+        element.href = link;
+    }
+}
+
+function updateElementList(id, data, template) {
+    const element = document.getElementById(id);
+
+    if (element)
+        element.innerHTML = data.map(item => `<li>${template(item)}</li>`).join('');
+}
 
 function updateProfileInfo(profileData) {
-    const photo = document.getElementById('profile.photo')
-    photo.src = profileData.photo
-    photo.alt = profileData.name
+    document.getElementById('profile.photo').src = profileData.photo;
 
-    const name = document.getElementById('profile.name')
-    name.innerText = profileData.name
-
-    const job = document.getElementById('profile.job')
-    job.innerText = profileData.job
-
-    const location = document.getElementById('profile.location')
-    location.innerText = profileData.location
-
-    const phone = document.getElementById('profile.phone')
-    phone.innerText = profileData.phone
-    phone.href = `tel:${profileData.phone}`
-
-    const email = document.getElementById('profile.email')
-    email.innerText = profileData.email
-    email.href = `mailto:${profileData.email}`
+    updateElementText('profile.name', profileData.name);
+    updateElementText('profile.job', profileData.job);
+    updateElementText('profile.location', profileData.location);
+    updateElementLink('profile.phone', profileData.phone, `tel:${profileData.phone}`);
+    updateElementLink('profile.email', profileData.email, `mailto:${profileData.email}`);
 }
 
 function updateSoftSkills(profileData) {
-    const softSkills = document.getElementById('profile.skills.softSkills')
-    softSkills.innerHTML = profileData.skills.softSkills.map(skill => `<li>${skill}</li>`).join('')
+    updateElementList('profile.skills.softSkills', profileData.skills.softSkills, skill => skill);
 }
 
 function updateHardSkills(profileData) {
-    const hardSkills = document.getElementById('profile.skills.hardSkills')
-    hardSkills.innerHTML = profileData.skills.hardSkills.map(skill => `<li><img src="${skill.logo}" alt="${skill.name}" title="${skill.name}"></li>`).join('')
+    updateElementList('profile.skills.hardSkills', profileData.skills.hardSkills, skill =>
+        `<img src="${skill.logo}" alt="${skill.name}" title="${skill.name}">`
+    );
 }
 
 function updateLanguages(profileData) {
-    const languages = document.getElementById('profile.languages')
-    languages.innerHTML = profileData.languages.map(language => `<li>${language}</li>`).join('')
+    updateElementList('profile.languages', profileData.languages, language => language);
 }
 
 function updatePortfolio(profileData) {
-    const portfolio = document.getElementById('profile.portfolio')
-    portfolio.innerHTML = profileData.portfolio.map(project => {
-        return `
-            <li>
-                <h3 ${project.github ? 'class="github"' : ''}>${project.name}</h3>
-                <a href="${project.url}" target="_blank">${project.url}</a>
-            </li>
-        `
-    }).join('')
+    updateElementList('profile.portfolio', profileData.portfolio, project => `
+        <h3 ${project.github ? 'class="github"' : ''}>${project.name}</h3>
+        <a href="${project.url}" target="_blank">${project.url}</a>`
+    );
 }
 
 function updateProfessionalExperience(profileData) {
-    const professionalExperience = document.getElementById('profile.professionalExperience')
-    professionalExperience.innerHTML = profileData.professionalExperience.map(experience => {
-        return `
-            <li>
-                <h3 class="title">${experience.name}</h3>
-                <p class="period">${experience.period}</p>
-                <p>${experience.description}</p>
-            </li>
-        `
-    }).join('')
+    updateElementList('profile.professionalExperience', profileData.professionalExperience, experience => `
+        <h3 class="title">${experience.name}</h3>
+        <p class="period">${experience.period}</p>
+        <p>${experience.description}</p>`
+    );
 }
 
+var x;
+
 (async () => {
-    const profileData = await fetchProfileData()
-    updateProfileInfo(profileData)
-    updateSoftSkills(profileData)
-    updateHardSkills(profileData)
-    updateLanguages(profileData)
-    updatePortfolio(profileData)
-    updateProfessionalExperience(profileData)
-})()
+    const profileData = await fetchProfileData();
+
+    updateProfileInfo(profileData);
+    updateSoftSkills(profileData);
+    updateHardSkills(profileData);
+    updateLanguages(profileData);
+    updatePortfolio(profileData);
+    updateProfessionalExperience(profileData);
+})();

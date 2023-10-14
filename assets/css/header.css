@@ -1,7 +1,14 @@
 .header {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     position: relative;
 }
 
@@ -30,16 +37,30 @@
 }
 
 .information {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
     width: 100%;
 }
 
 .information p {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     margin: .5rem;
     font-size: 1.125rem;
 }
@@ -72,25 +93,33 @@
 
 @media only screen and (min-width: 768px) {
     .header {
+        display: -ms-grid;
         display: grid;
-        grid-template-areas:
+            grid-template-areas:
             "photo title"
             "photo information"
         ;
     }
 
     .header .photo {
+        -ms-grid-row: 1;
+        -ms-grid-row-span: 2;
+        -ms-grid-column: 1;
         grid-area: photo;
         margin: 0 auto;
     }
 
     .header .title {
+        -ms-grid-row: 1;
+        -ms-grid-column: 2;
         grid-area: title;
         text-align: start;
         max-width: 210px;
     }
 
     .header .information {
+        -ms-grid-row: 2;
+        -ms-grid-column: 2;
         grid-area: information;
     }
 }
